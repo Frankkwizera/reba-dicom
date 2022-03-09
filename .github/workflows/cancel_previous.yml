@@ -12,3 +12,4 @@ jobs:
         with:
           workflow_id: >
             flakes.yml
+          access_token: ${{ github.token }}
