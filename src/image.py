@@ -3,6 +3,7 @@
 
 from src.utils.utils import Utils
 from pydicom.dataset import FileDataset
+from pydicom.dataelem import DataElement
 from pydicom.pixel_data_handlers.util import convert_color_space
 from typing import Dict, Union, List, Tuple
 import matplotlib.pyplot as plt
@@ -21,12 +22,12 @@ class Image:
         """
         plt.imshow(self.image_dataset.pixel_array)
         plt.show()
-    
+
     def save(self, file_path: str = None) -> str:
         """
         Saves dicom pixel array on a file system.
         Inputs:
-            - file_path: Desired file path, If it is not present the default file path is of the following format 
+            - file_path: Desired file path, If it is not present the default file path is of the following format
                          ``series.{self.image_dataset.SeriesInstanceUID}.instance.{self.image_dataset.InstanceNumber}.png``
         Returns:
             - File path where the png is saved.
@@ -39,7 +40,7 @@ class Image:
 
         if file_path:
             cv2.imwrite(file_path, pixel_array)
-        
+
         else:
             file_path: str = f"series.{self.image_dataset.SeriesInstanceUID}.instance.{self.image_dataset.InstanceNumber}.png"
             cv2.imwrite(file_path, pixel_array)
@@ -56,17 +57,17 @@ class Image:
               dictionaries.
         """
         dataset_keys: List[Tuple[int, int]] = list(self.image_dataset.keys())
-        dataset_keys.remove(('7fe0', '0010')) # Remove pixel_array tag
+        dataset_keys.remove(('7fe0', '0010'))  # Remove pixel_array tag
 
         elements: List[Dict[str, Union[str, int, float]]] = []
         for dataset_key in dataset_keys:
-            data_element: pydicom.dataelem.DataElement = self.image_dataset[dataset_key]
+            data_element: DataElement = self.image_dataset[dataset_key]
             data_element_dict: Dict[str, Union[str, int, float]] = {
                 "value": str(data_element.value),
                 "name": str(data_element.name)
             }
             elements.append(data_element_dict)
-        
+
         if not json_file_path:
             return elements
 
@@ -77,9 +78,3 @@ class Image:
 
     def anonymize(self):
         pass
-
-
-image_path: str = "/Users/frankwizera/Downloads/series-00000 5/image-00001.dcm"
-image: Image = Image(dicom_file_path=image_path)
-image.to_json(json_file_path='frank.json')
-image.save()
