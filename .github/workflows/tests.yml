@@ -13,6 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Install dependencies from requirements
+        run: |
+          python -m pip install --upgrade --upgrade-strategy only-if-needed pip
+          pip install --no-cache-dir -r requirements.txt
       - name: Run pre-commit which should run flake8 if needed
         run: |
           ./hooks/pre-commit
