@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rebadicom"
+version = "0.0.2"
+description = "A Python package for reading, converting, and inspecting DICOM medical imaging files."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Frank Kwizera", email = "frankpmn@gmail.com" }
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "pydicom>=2.2.2",
+    "numpy>=1.21.5",
+    "matplotlib>=3.5.1",
+    "opencv-python>=4.5.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/Frankkwizera/reba-dicom"
+Repository = "https://github.com/Frankkwizera/reba-dicom"
+
+[tool.setuptools.packages.find]
+include = ["rebadicom*"]

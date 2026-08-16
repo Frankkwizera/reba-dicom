@@ -1,7 +1,7 @@
 # authors : Frank Kwizera <frankpmn@gmail.com>
 # license : MIT
 
-from src.utils.utils import Utils
+from rebadicom.utils.utils import Utils
 from pydicom.dataset import FileDataset
 from pydicom.dataelem import DataElement
 from pydicom.pixel_data_handlers.util import convert_color_space
